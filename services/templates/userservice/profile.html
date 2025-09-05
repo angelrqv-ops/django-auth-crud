@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Perfil</title>
+</head>
+
+<body
+    style="margin:0; height:100vh; display:flex; justify-content:center; align-items:center; background:linear-gradient(135deg, #d6bcfa, #b794f4); font-family:Arial, sans-serif;">
+
+    <div
+        style="background:white; padding:40px; border-radius:20px; box-shadow:0 8px 25px rgba(0,0,0,0.15); width:350px;">
+        
+        <!-- Título -->
+        <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:25px;">
+            <!-- Icono servicios -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                style="width:36px; height:36px; color:#805ad5;">
+                <path
+                    d="M12 2a4 4 0 0 0-4 4v2H7a2 2 0 0 0-2 2v2h14V10a2 2 0 0 0-2-2h-1V6a4 4 0 0 0-4-4zM5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5H5z" />
+            </svg>
+            <h2 style="margin:0; color:#333;">Registro de Perfil</h2>
+        </div>
+        <h5 style="margin:0; color:#333;">Completa tu informacion para que la gente pueda contactarte si requieren de tu servicio.</h5>
+
+        <!-- Campo Nombre -->
+        <label style="display:block; text-align:left; margin-bottom:5px; color:#333; font-size:14px; margin-top: 20px;">Nombre
+            completo</label>
+        <input type="text" placeholder="Tu nombre"
+            style="width:90%; padding:12px; margin-bottom:15px; border:1px solid #ccc; border-radius:10px; font-size:14px; outline:none; transition:0.3s;"
+            onfocus="this.style.border='1px solid #805ad5';" onblur="this.style.border='1px solid #ccc';">
+
+        <!-- Campo Email -->
+        <label style="display:block; text-align:left; margin-bottom:5px; color:#333; font-size:14px;">Correo
+            electrónico</label>
+        <input type="email" placeholder="ejemplo@email.com"
+            style="width:90%; padding:12px; margin-bottom:15px; border:1px solid #ccc; border-radius:10px; font-size:14px; outline:none; transition:0.3s;"
+            onfocus="this.style.border='1px solid #805ad5';" onblur="this.style.border='1px solid #ccc';">
+
+        <!-- Campo Teléfono -->
+        <label style="display:block; text-align:left; margin-bottom:5px; color:#333; font-size:14px;">Teléfono</label>
+        <input type="tel" placeholder="+52 55 1234 5678"
+            style="width:90%; padding:12px; margin-bottom:15px; border:1px solid #ccc; border-radius:10px; font-size:14px; outline:none; transition:0.3s;"
+            onfocus="this.style.border='1px solid #805ad5';" onblur="this.style.border='1px solid #ccc';">
+
+        <!-- Selección de Servicio -->
+        <label style="display:block; text-align:left; margin-bottom:5px; color:#333; font-size:14px;">Servicio
+            principal</label>
+        <select
+            style="width:98%; padding:12px; margin-bottom:20px; border:1px solid #ccc; border-radius:10px; font-size:14px; outline:none; transition:0.3s; background:white;"
+            onfocus="this.style.border='1px solid #805ad5';" onblur="this.style.border='1px solid #ccc';">
+            <option value="">Selecciona un servicio</option>
+            <option value="carpinteria">Carpintería</option>
+            <option value="electricista">Electricista</option>
+            <option value="plomero">Plomero</option>
+            <option value="pintura">Pintura</option>
+            <option value="limpieza">Limpieza</option>
+            <option value="otro">Otro</option>
+        </select>
+        <label style="display:block; text-align:left; margin-bottom:5px; color:#333; font-size:14px;">Servicios
+            adcionales</label>
+        <textarea placeholder="Cuentanos sobre tu experiencia o si tienes algún otro servicios adicional que brindes..."
+            style="width:90%; height:80px; padding:12px; margin-bottom:20px; border:1px solid #ccc; border-radius:10px; font-size:14px; resize:none; outline:none; transition:0.3s;"
+            onfocus="this.style.border='1px solid #805ad5';" onblur="this.style.border='1px solid #ccc';"></textarea>
+        <!-- Botón -->
+        <button
+            style="width:100%; padding:12px; background:linear-gradient(135deg, #9f7aea, #805ad5); border:none; border-radius:10px; color:white; font-size:16px; font-weight:bold; cursor:pointer; transition:0.3s;"
+            onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+            Crear perfil
+        </button>
+    </div>
+</body>
+</html>

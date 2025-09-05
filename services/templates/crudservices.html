@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(135deg, #d6bcfa, #b794f4);
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            gap: 30px;
+        }
+
+        /* 🔹 Botón logout arriba a la derecha */
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #9f7aea, #805ad5);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #805ad5, #6b46c1);
+        }
+
+        /* Caja del formulario */
+        .form-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            width: 320px;
+            text-align: center;
+        }
+
+        .form-box h2 {
+            margin: 0 0 20px;
+            color: #333;
+        }
+
+        .form-box label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #444;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .form-box input {
+            width: 90%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .form-box button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #9f7aea, #805ad5);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Caja de la tabla */
+        .table-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            max-width: 95%;
+            overflow-x: auto;
+        }
+
+        .table-box table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .table-box th {
+            background: linear-gradient(135deg, #d6bcfa, #b794f4);
+            color: white;
+            text-align: left;
+            padding: 12px;
+        }
+
+        .table-box td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table-box tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .table-box tr:hover {
+            background: #f3e8ff;
+        }
+
+        .table-box button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            background: #805ad5;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            margin-left: 5px;
+        }
+
+        /* Fondo del modal */
+        .modal {
+            display: none;
+            /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Caja del modal */
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Botón de cerrar (X) */
+        .close {
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-content input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #9f7aea, #805ad5);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background: linear-gradient(135deg, #805ad5, #6b46c1);
+        }
+    </style>
+    <script>
+        // Abrir modal y cargar datos
+        function openModal(id, nombre) {
+            document.getElementById("editModal").style.display = "flex";
+            document.getElementById("serviceId").value = id;
+            document.getElementById("nombreservicioModal").value = nombre;
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById("editModal").style.display = "none";
+        }
+
+        // Cerrar modal si se hace clic fuera del contenido
+        window.onclick = function (event) {
+            const modal = document.getElementById("editModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+         // Abrir modal y cargar datos
+        function openModalDelete(id, nombre) {
+            document.getElementById("deleteModal").style.display = "flex";
+            document.getElementById("serviceIddelete").value = id;
+            document.getElementById("nombreservicioModalDelete").value = nombre;
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById("deleteModal").style.display = "none";
+        }
+
+        // Cerrar modal si se hace clic fuera del contenido
+        window.onclick = function (event) {
+            const modal = document.getElementById("deleteModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    {% if user.is_authenticated %}
+    <a class="logout-btn" href="{% url 'deslogueo' %}">Logout</a>
+    {% endif %}
+
+    <!-- Formulario centrado arriba -->
+    <div class="form-box">
+        <h2>Registrar Servicio</h2>
+        <form action="{% url 'crudService' %}" method="POST">
+            {% csrf_token %}
+            <label>Nombre del servicio</label>
+            <input type="text" placeholder="Ej. Carpintería" id="nombreservicio" name="nombreservicio">
+            <button>Registrar</button>
+        </form>
+    </div>
+
+    <!-- Tabla centrada abajo -->
+    <div class="table-box">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Servicio</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                <tr>
+                    <td>{{service.id}}</td>
+                    <td>{{service.nombre_servicio}}</td>
+                    <td><button onclick="openModalDelete('{{service.id}}', '{{service.nombre_servicio}}')">Eliminar</button><button onclick="openModal('{{service.id}}', '{{service.nombre_servicio}}')">Editar</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal oculto por defecto -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Editar Servicio</h2>
+            <form method="POST" action="{% url 'updateservice' %}">
+                {% csrf_token %}
+                <input type="hidden" id="serviceId" name="serviceId">
+                <label>Nombre del servicio</label>
+                <input type="text" id="nombreservicioModal" name="nombreservicioModal">
+                <button type="submit">Guardar cambios</button>
+            </form>
+        </div>
+    </div>
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalDelete()">&times;</span>
+            <h2>Editar Servicio</h2>
+            <form method="POST" action="{% url 'deleteservice' %}">
+                {% csrf_token %}
+                <input type="hidden" id="serviceIddelete" name="serviceIddelete">
+                <label>¿Estas seguro que deseas eliminar el servicio?</label>
+                <input type="hidden" id="nombreservicioModalDelete" name="nombreservicioModalDelete">
+                <button style="margin-top: 20px;" type="submit">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
